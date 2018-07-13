@@ -8,4 +8,6 @@
 * [docker](docker.md)
 * [ldap](ldap.md)
 * [harbor](harbor.md)
+* [nfs](nfs.md)
+* [haproxy,keepalived,rsync](haproxy-keepalived-rsync.md)
 
