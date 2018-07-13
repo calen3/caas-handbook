@@ -10,4 +10,7 @@
 * [harbor](harbor.md)
 * [nfs](nfs.md)
 * [haproxy,keepalived,rsync](haproxy-keepalived-rsync.md)
+* [openshift](openshift.md)
+* [caas](caas.md)
+* [smoke test](smoke-test.md)
 
