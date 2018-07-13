@@ -1,14 +1,12 @@
 # openshift
 
----
-
 安装openshift
 
 ## 安装步骤
 
 > 配置LB节点keepalived，生成配置文件
 
-```
+```text
 cat > keepalived.conf << EOF
 
 ! Configuration File for keepalived
@@ -27,12 +25,11 @@ vrrp_instance VI_1 {
     }
 }
 EOF
-
 ```
 
 > 配置LB节点keepalived
 
-```
+```text
 cat > keepalived.yaml << EOF
 
 ---
@@ -65,7 +62,7 @@ EOF
 
 > 生成openshift inventory变量配置
 
-```
+```text
 cat > ansible_os_hosts << EOF
 
 [OSEv3:children]
@@ -162,7 +159,7 @@ EOF
 
 > 生成openshift inventory主机配置，并安装openshift
 
-```
+```text
 env |grep CAAS_HOST_MASTER |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/masters
 env |grep CAAS_HOST_NODE |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/nodes
 env |grep CAAS_HOST_LB |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/lbs
@@ -196,5 +193,4 @@ oc adm policy add-cluster-role-to-user cluster-admin admin
 ```
 
 ## 验证
-
 

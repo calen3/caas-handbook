@@ -1,14 +1,12 @@
 # nfs
 
----
-
 nfs 安装
 
 ## 安装步骤
 
 > 生成nfs配置文件
 
-```
+```text
 cat > config.py << EOF
 role = {
     "identity": "{{ nfs_role }}", 
@@ -22,7 +20,7 @@ EOF
 
 > 安装nfs
 
-```
+```text
 cat > nfs.yaml << EOF
 
 ---
@@ -92,5 +90,4 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 ```
 
 ## 验证
-
 

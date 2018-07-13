@@ -1,14 +1,12 @@
 # haproxy,keepalived,rsync
 
----
-
 haproxy keepalived rsync 安装
 
 ## 安装步骤
 
 > 生成haproxy配置模版
 
-```
+```text
 cat > haproxy.cfg << EOF
 
 global
@@ -59,7 +57,7 @@ EOF
 
 > 安装并配置haproxy
 
-```
+```text
 cat > haproxy.yaml << EOF
 ---
 - hosts: storages
@@ -83,7 +81,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 安装并配置KeepAlived && rsync
 
-```
+```text
 cat > keepalived-rsync.yaml << EOF
 
 ---
@@ -129,5 +127,4 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 ```
 
 ## 验证 {#验证}
-
 

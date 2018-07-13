@@ -1,6 +1,4 @@
-# Prerequistes
-
----
+# prepare
 
 安装caas 平台提前需要准备的工具
 
@@ -18,7 +16,7 @@ fi
 
 > copy 秘钥
 
-```
+```text
 for h in $hosts; do
     ssh-copy-id root@$h
 done
@@ -30,7 +28,7 @@ done
 
 > 在CAAS\_HOST\_MASTER1 上 ，找一块分区，分区大小必须 &gt; 50G， 若没有大于50G的分区，请联系客户或相关人员，增加盘或者划分分区
 >
-> 分区查看命令  （Avail）
+> 分区查看命令 （Avail）
 
 ```bash
 df -h
@@ -147,7 +145,7 @@ echo "$CAAS_VIP_LOADBALANCE $CAAS_DOMAIN_OS_CONSOLE" >> ./extra_hosts
 
 > 查看文件
 
-```
+```text
 ls
 
 # ansible_hosts  extra_hosts
@@ -161,7 +159,7 @@ yum install ansible -y
 
 > 检查所有master和node节点的selinux, **当下面命令运行出现错误时，请手动重启所有master和node节点, 之后再次运行该命令，确保该修改成功**
 
-```
+```text
 cat > selinux-check.yaml << EOF
 
 ---
@@ -185,7 +183,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 \#\#\#\#\#\#开始\#\#\#\#\#
 
-```
+```text
 cd $offlinedata/caas-offline/cent7.2
 
 # 重新启动 http 服务，搭建caas的yum源
@@ -200,7 +198,7 @@ cd $offlinedata/caas-offline/install
 
 > 生成prepare配置文件， 进行环境的一些准备工作
 
-```
+```text
 cat > prepare.yaml << EOF
 
 ---
@@ -265,5 +263,4 @@ EOF
 
 ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=no" ./prepare.yaml
 ```
-
 

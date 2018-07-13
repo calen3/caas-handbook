@@ -1,12 +1,10 @@
 # ldap
 
----
-
 ldap 安装
 
 ## 安装步骤
 
-```
+```text
 cat > ldap.yaml << EOF
 
 ---
@@ -46,5 +44,4 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 ```
 
 ## 验证
-
 

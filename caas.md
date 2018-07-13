@@ -1,14 +1,12 @@
 # caas
 
----
-
 caas portal等相关安装
 
 ## 安装步骤
 
 > 安装配置mysql
 
-```
+```text
 cat > mysql.yaml << EOF
 
 ---
@@ -199,7 +197,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 配置DNS
 
-```
+```text
 cat > domain.conf << EOF
 address=/$CAAS_DOMAIN_LDAP/$CAAS_VIP_MYSQL_LDAP 
 address=/$CAAS_DOMAIN_HARBOR/$CAAS_VIP_HARBOR 
@@ -213,7 +211,7 @@ ansible -i ansible_hosts all -m shell -a 'systemctl restart dnsmasq'
 
 > 部署caasprotal
 
-```
+```text
 cat > caasportal.yaml << EOF
 ---
 - hosts: localhost
@@ -247,10 +245,9 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 部署promethues
 
-```
+```text
 
 ```
 
 ## 验证
-
 

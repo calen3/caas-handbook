@@ -1,14 +1,12 @@
 # harbor
 
----
-
 安装harbor
 
 ## 安装步骤
 
 > 生成harbor的配置文件
 
-```
+```text
 cat > harbor.cfg << EOF
 
 ## Configuration file of Harbor
@@ -181,7 +179,7 @@ EOF
 
 > 安装harbor
 
-```
+```text
 cat > harbor.yaml << EOF
 
 ---
@@ -202,5 +200,4 @@ EOF
 
 ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=no" ./harbor.yaml
 ```
-
 
