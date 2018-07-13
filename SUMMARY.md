@@ -6,4 +6,5 @@
 * [resource planning](resource-planning.md)
 * [prepare](prepare.md)
 * [docker](docker.md)
+* [ldap](ldap.md)
 
