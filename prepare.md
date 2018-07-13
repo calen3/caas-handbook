@@ -34,15 +34,15 @@ done
 df -h
 
 
-Filesystem Size Used Avail Use% Mounted on
-/dev/mapper/centos-root 36G 2.3G 34G 7% /
-devtmpfs 7.8G 0 7.8G 0% /dev
-tmpfs 7.8G 0 7.8G 0% /dev/shm
-tmpfs 7.8G 8.6M 7.8G 1% /run
-tmpfs 7.8G 0 7.8G 0% /sys/fs/cgroup
-/dev/sda1 497M 124M 373M 25% /boot
-tmpfs 1.6G 0 1.6G 0% /run/user/0
-/dev/sdc1 100G 33M 100G 1% /deploydata
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root   36G  2.3G   34G   7% /
+devtmpfs                 7.8G     0  7.8G   0% /dev
+tmpfs                    7.8G     0  7.8G   0% /dev/shm
+tmpfs                    7.8G  8.6M  7.8G   1% /run
+tmpfs                    7.8G     0  7.8G   0% /sys/fs/cgroup
+/dev/sda1                497M  124M  373M  25% /boot
+tmpfs                    1.6G     0  1.6G   0% /run/user/0
+/dev/sdc1                100G   33M  100G   1% /deploydata
 ```
 
 > 请执行以下命令 获得&gt;50G 的分区目录
