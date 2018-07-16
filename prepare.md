@@ -60,12 +60,12 @@ else
 fi
 ```
 
-> 将caas-offline.tar离线包上传到到 CAAS\_MASTER1 机器的目录$offlinedata下
+> 将caas-offline.tar.gz离线包上传到到 CAAS\_MASTER1 机器的目录$offlinedata下
 
 解压离线文件
 
 ```bash
-tar xvf $offlinedata/caas-offline.tar -C $offlinedata
+tar zxvf $offlinedata/caas-offline.tar.gz -C $offlinedata
 
 cd $offlinedata/caas-offline/cent7.2
 
