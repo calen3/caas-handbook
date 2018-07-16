@@ -58,6 +58,8 @@ cat > keepalived.yaml << EOF
       service: name=keepalived state=restarted enabled=true
 
 EOF
+
+ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=no"  ./keepalived.yaml
 ```
 
 > 生成openshift inventory变量配置
