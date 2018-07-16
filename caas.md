@@ -254,7 +254,6 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 > 部署promethues
 
 ```text
-
 mkdir -p prometheus
 cp ../caas/prometheus/config/alert.rules prometheus/
 cp ../caas/prometheus/config/config.yml prometheus/
@@ -647,7 +646,6 @@ ansible-playbook -i ansible_hosts node_exporter.yml
 
 chmod +x  prometheus-setup.sh
 ./prometheus-setup.sh
-
 ```
 
 ## 验证

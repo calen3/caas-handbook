@@ -67,6 +67,7 @@ fi
 ```bash
 tar zxvf $offlinedata/caas-offline.tar.gz -C $offlinedata
 ```
+
 ```bash
 cd $offlinedata/caas-offline/cent7.2
 
@@ -75,7 +76,7 @@ cd $offlinedata/caas-offline/cent7.2
 nohup python -m SimpleHTTPServer 38888 &
 
 # 配置iptables 规则，其实能访问
-iptables -I INPUT -p tcp  --dport 38888 -j ACCEPT 
+iptables -I INPUT -p tcp  --dport 38888 -j ACCEPT
 ```
 
 ## master1配置ansible

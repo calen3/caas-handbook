@@ -178,15 +178,22 @@ $(cat /tmp/masters | awk '{print $1 " openshift_node_labels=\"{'\''region'\'': '
 $(cat /tmp/nodes | awk '{print $1 " openshift_node_labels=\"{'\''region'\'': '\''node'\''}\" openshift_schedulable=true"}')
 
 EOF
+```
 
+> 解压镜像并上传到harbor
 
+```text
 # import image for openshift
 yum install -y unzip
 unzip -q ../images/os39-base-images.zip -d ../images/
 cd ../images/os39-base-images/
 ./import.sh $CAAS_DOMAIN_HARBOR Caas12345
 cd -
+```
 
+> 安装并配置openshift
+
+```text
 tar -xvf ../openshift/openshift-ansible.tar -C ../openshift/
 
 ansible-playbook -i ./ansible_os_hosts --ssh-common-args "-o StrictHostKeyChecking=no" ../openshift/openshift-ansible/playbooks/deploy_cluster.yml
@@ -197,7 +204,6 @@ oc adm policy add-cluster-role-to-user cluster-admin admin
 > 添加loadbalance节点80,443,30000-32767端口部分
 
 ```text
-
 cat > config-haproxy-lb << EOF
 # Global settings
 #---------------------------------------------------------------------
@@ -307,9 +313,7 @@ cat > config-haproxy-lb.yml << EOF
 EOF
 
 ansible-playbook -i ./ansible_os_hosts --ssh-common-args "-o StrictHostKeyChecking=no" config-haproxy-lb.yml
-
 ```
-
 
 ## 验证
 

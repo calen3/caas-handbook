@@ -1,6 +1,4 @@
-# requirements
-
----
+# requirement
 
 硬件需求
 
@@ -29,7 +27,4 @@
 | VIP | VIP1 用于openshift loadbalance 上的haproxy负载；VIP2 用于存储机上的haproxy代理ldap、MySQL负载；VIP3 用于存储机上harbor的高可用；VIP4 用于存储机上NFS的高可用 |  |
 
 centos 7.2
-
-
-
 
