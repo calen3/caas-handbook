@@ -13,4 +13,5 @@
 * [openshift](openshift.md)
 * [caas](caas.md)
 * [smoke test](smoke-test.md)
-* [TODO list](TODO-LIST.md)
+* [TODO list](todo-list.md)
+
