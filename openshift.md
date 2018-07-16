@@ -183,6 +183,7 @@ EOF
 > 解压镜像并上传到harbor
 
 ```text
+cd $offlinedata/caas-offline/install
 # import image for openshift
 yum install -y unzip
 unzip -q ../images/os39-base-images.zip -d ../images/
