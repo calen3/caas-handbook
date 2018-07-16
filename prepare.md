@@ -66,7 +66,8 @@ fi
 
 ```bash
 tar zxvf $offlinedata/caas-offline.tar.gz -C $offlinedata
-
+```
+```bash
 cd $offlinedata/caas-offline/cent7.2
 
 # 启动 http 服务，搭建caas的yum源
