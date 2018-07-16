@@ -191,6 +191,8 @@ cat > harbor.yaml << EOF
       unarchive: src=../images/harbor/harbor-offline-installer-stage.tgz  dest=/opt/
     - name: unarchive clair-db-fetched
       unarchive: src=../images/harbor/clair-db-fetched.gz dest=/caas_data/harbor_data/
+    - name: set self host ip to  /etc/resolv.conf 
+      shell: grep "nameserver {{ inventory_hostname }}" /etc/resolv.conf || sed -i "1inameserver {{ inventory_hostname }}" /etc/resolv.conf
     - name: copy harbor config
       copy: src=./harbor.cfg dest=/opt/harbor/ force=true
     - name: install harbor 
