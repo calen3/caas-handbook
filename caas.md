@@ -197,7 +197,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 配置DNS
 
-```text
+```bash
 cat > domain.conf << EOF
 address=/$CAAS_DOMAIN_LDAP/$CAAS_VIP_MYSQL_LDAP 
 address=/$CAAS_DOMAIN_HARBOR/$CAAS_VIP_HARBOR 
@@ -211,7 +211,7 @@ ansible -i ansible_hosts all -m shell -a 'systemctl restart dnsmasq'
 
 > 部署caasprotal
 
-```text
+```bash
 cat > caasportal.yaml << EOF
 ---
 - hosts: localhost
@@ -228,7 +228,7 @@ cat > caasportal.yaml << EOF
     muddle_image_tag: $CAAS_VAR_TAG_MUDDLE_IMAGE
     redis_image_tag: $CAAS_VAR_TAG_REDIS_IMAGE
     caas_domain_portal: $CAAS_DOMAIN_PORTAL
-
+    
   tasks:
     - name: import the images for caasportal
       shell: cd ../images && ./import_caasportal.sh  $CAAS_DOMAIN_HARBOR Caas12345
