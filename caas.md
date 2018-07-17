@@ -253,7 +253,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 部署promethues
 
-```text
+```bash
 mkdir -p prometheus
 cp ../caas/prometheus/config/alert.rules prometheus/
 cp ../caas/prometheus/config/config.yml prometheus/
@@ -523,7 +523,9 @@ spec:
   wildcardPolicy: None
 EOF
 
+```
 
+```bash
 cat > prometheus/volumes.yml << EOF
 ---
 apiVersion: v1
@@ -582,6 +584,10 @@ spec:
   volumeName: promrule
 EOF
 
+
+```
+
+```bash
 cat ../caas/prometheus/config/prometheus.yaml > prometheus/prometheus.yml
 hostname_ip=$(env |grep CAAS_HOST |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print arrays[3]" " $2}}')
 tempfile=$(mktemp temp.XXXXXX)
@@ -606,6 +612,10 @@ done
 cat $tempfile >> prometheus/prometheus.yml
 
 
+
+```
+
+```bash
 cat > prometheus-setup.sh << EOF
 curl -X GET 'http://$CAAS_VIP_NFS:8080/nfs/create?volName=prometheusrule&volSize=2048'
 curl -X GET 'http://$CAAS_VIP_NFS:8080/nfs/create?volName=alertmanager&volSize=1024'
@@ -627,6 +637,10 @@ scp prometheus/alert.rules $CAAS_VIP_NFS:/nfs/prometheusrule/
 
 EOF
 
+
+```
+
+```bash
 cat > node_exporter.yml << EOF
 ---
 - hosts: all
@@ -641,6 +655,10 @@ cat > node_exporter.yml << EOF
     - name: open the port:9100 for node_exporter
       shell: 'iptables -nL|grep 9100 || iptables -I INPUT -p tcp --dport 9100 -j ACCEPT && iptables-save'
 EOF
+
+```
+
+```bash
 
 ansible-playbook -i ansible_hosts node_exporter.yml
 
