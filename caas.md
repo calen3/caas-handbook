@@ -6,7 +6,7 @@ caas portal等相关安装
 
 > 安装配置mysql
 
-```text
+```bash
 cat > mysql.yaml << EOF
 
 ---
