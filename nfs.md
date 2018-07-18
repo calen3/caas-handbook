@@ -6,7 +6,7 @@ nfs 安装
 
 > 生成nfs配置文件
 
-```text
+```bash
 cat > config.py << EOF
 role = {
     "identity": "{{ nfs_role }}", 
@@ -20,7 +20,7 @@ EOF
 
 > 安装nfs
 
-```text
+```bash
 cat > nfs.yaml << EOF
 
 ---

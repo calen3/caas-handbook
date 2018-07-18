@@ -6,7 +6,7 @@
 
 > 生成harbor的配置文件
 
-```text
+```bash
 cat > harbor.cfg << EOF
 
 ## Configuration file of Harbor
@@ -179,7 +179,7 @@ EOF
 
 > 安装harbor
 
-```text
+```bash
 cat > harbor.yaml << EOF
 
 ---
