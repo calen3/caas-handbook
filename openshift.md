@@ -6,7 +6,7 @@
 
 > 配置LB节点keepalived，生成配置文件
 
-```text
+```bash
 cat > keepalived.conf << EOF
 
 ! Configuration File for keepalived
@@ -29,7 +29,7 @@ EOF
 
 > 配置LB节点keepalived
 
-```text
+```bash
 cat > keepalived.yaml << EOF
 
 ---
@@ -64,7 +64,7 @@ ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=
 
 > 生成openshift inventory变量配置
 
-```text
+```bash
 cat > ansible_os_hosts << EOF
 
 [OSEv3:children]
@@ -161,7 +161,7 @@ EOF
 
 > 生成openshift inventory主机配置，并安装openshift
 
-```text
+```bash
 env |grep CAAS_HOST_MASTER |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/masters
 env |grep CAAS_HOST_NODE |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/nodes
 env |grep CAAS_HOST_LB |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print $2" hostname="arrays[3]}}' > /tmp/lbs
@@ -184,7 +184,7 @@ EOF
 
 > 解压镜像并上传到harbor
 
-```text
+```bash
 cd $offlinedata/caas-offline/install
 # import image for openshift
 yum install -y unzip
@@ -196,7 +196,7 @@ cd -
 
 > 安装并配置openshift
 
-```text
+```bash
 tar -xvf ../openshift/openshift-ansible.tar -C ../openshift/
 
 ansible-playbook -i ./ansible_os_hosts --ssh-common-args "-o StrictHostKeyChecking=no" ../openshift/openshift-ansible/playbooks/deploy_cluster.yml
@@ -206,7 +206,7 @@ oc adm policy add-cluster-role-to-user cluster-admin admin
 
 > 添加loadbalance节点80,443,30000-32767端口部分
 
-```text
+```bash
 cat > config-haproxy-lb << EOF
 # Global settings
 #---------------------------------------------------------------------
