@@ -151,13 +151,13 @@ cat > ssh_key_copy.yaml << EOF
 - hosts: all
   vars:
     ansible_ssh_user: root
-    ansible_ssh_pass: $SSH_PASSWD
+    ansible_ssh_pass: "$SSH_PASSWD"
   tasks:
     - name: copy ssh key to all host
       authorized_key: user=root key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 EOF
 
-ansible-playbook -i ./hosts --ssh-common-args "-o StrictHostKeyChecking=no" ./ssh_key_copy.yaml
+ansible-playbook -i ./ansible_hosts --ssh-common-args "-o StrictHostKeyChecking=no" ./ssh_key_copy.yaml
 ```
 
 **方式2：（此方法中，需手动输入所有主机的密码）**
