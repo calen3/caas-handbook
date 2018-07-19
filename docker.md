@@ -10,7 +10,7 @@
 
 > 在本地主机终端上，执行下面的命令， 获得所有MASTER 节点列表
 
-```text
+```bash
 source ~/.bash_caas_env
 
 env |grep CAAS_HOST_MASTER  |awk -F '=' '{print $2}'
@@ -19,13 +19,13 @@ env |grep CAAS_HOST_NODE  |awk -F '=' '{print $2}'
 
 > ssh 登陆每台master 和 node 主机， 输入下面命令 查看磁盘 和块设备
 
-```text
+```bash
 lsblk -a
 ```
 
 > 输出内容如下
 
-```text
+```bash
 # 下面的为输出内容
 NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 sda               8:0    0   40G  0 disk
@@ -50,19 +50,57 @@ sr0              11:0    1 1024M  0 rom
 > 数据分区 （需要格式化 使用 mkfs.xfs 格式化 ）需要挂载到 /caas\_data/， 使用mount -t xfs 命令
 >
 > 最后修改 /etc/fstab 文件，添加开机挂载目录，将openshift 和 数据分区设置为开机自动挂载
->
-> 假设给docker 使用的分区为 /dev/sdb1, 请执行下面命令 ，创建vg
 
-```text
-  pvcreate /dev/sdb1
-  vgcreate docker-vg /dev/sdb1
+#### 分区示例
+
+假设找到的100G分区为/dev/sdb，以下脚本自动将/dev/sdb分为三个区/dev/sdb1\(30G\)，/dev/sdb2\(30G\)，/dev/sdb3\(除去sdb1和sdb2的剩余全部sdb容量\)。创建好docker-vg、os-vg、data-vg和对应的逻辑卷后格式化挂载到对应目录。
+
+```bash
+echo "n
+p
+1
+
++30G
+w
+" | fdisk /dev/sdb && pvcreate /dev/sdb1
+
+echo "n
+p
+2
+
++30G
+w
+" | fdisk /dev/sdb && pvcreate /dev/sdb2
+
+echo "n
+p
+3
+
+
+w
+" | fdisk /dev/sdb && pvcreate /dev/sdb3
+
+vgcreate docker-vg /dev/sdb1
+vgcreate os-vg /dev/sdb2
+lvcreate -n os-lv -l 100%FREE /dev/os-vg
+mkfs.xfs /dev/os-vg/os-lv
+vgcreate  data-vg /dev/sdb3
+lvcreate -n data-lv -l 100%FREE /dev/data-vg
+mkfs.xfs /dev/data-vg/data-lv
+
+mkdir -p /var/lib/origin/openshift.local.volumes
+mkdir -p /caas_data/
+
+echo "/dev/os-vg/os-lv  /var/lib/origin/openshift.local.volumes xfs defaults 0 0" >> /etc/fstab
+echo "/dev/data-vg/data-lv /caas_data/ xfs defaults 0 0" >> /etc/fstab
+mount -a
 ```
 
-### 存储  配置
+### 存储配置
 
 在master1终端上，执行下面的命令， 获得所有存储 节点列表
 
-```text
+```bash
 source ~/.bash_caas_env
 
 env |grep CAAS_HOST_STORAGE  |awk -F '=' '{print $2}'
@@ -70,13 +108,13 @@ env |grep CAAS_HOST_STORAGE  |awk -F '=' '{print $2}'
 
 ssh 登陆每台存储 主机， 输入下面命令 查看磁盘 和块设备
 
-```text
+```bash
 lsblk -a
 ```
 
 > 输出内容如下
 
-```text
+```bash
 # 下面的为输出内容
 NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 sda               8:0    0   40G  0 disk
@@ -104,9 +142,22 @@ sr0              11:0    1 1024M  0 rom
 >
 > 假设给NFS 使用的分区为 /dev/sdb1, 请执行下面命令 ，创建vg
 
-```text
-vgcreate  vg-paas /dev/sdb1 /dev/xxx（按照实际磁盘数量和策略决定）
+#### 分区示例
+
+以下示例为存储节点上有两个数据盘/dev/sdb和/dev/sdc，其中sdb分配给nfs，需要创建vg-paas以供convert2nfs程序使用；sdc用作数据盘，创建data-vg和data-lv逻辑卷后挂在到/caas-data以供存储机其他程序存储数据（若只有一块硬盘则参照上面的例子先分区后再执行以下操作）。
+
+```bash
+pvcreate /dev/sdb
+vgcreate  vg-paas /dev/sdb
 mkdir /nfs
+mkdir /caas_data/
+pvcreate /dev/sdc
+vgcreate data-vg /dev/sdc
+lvcreate -n data-lv -l 100%FREE /dev/data-vg
+mkfs.xfs /dev/data-vg/data-lv
+mkdir -p /caas_data/
+echo "/dev/data-vg/data-lv /caas_data/ xfs defaults 0 0" >> /etc/fstab
+mount -a
 ```
 
 ## 安装配置docker
@@ -117,7 +168,7 @@ mkdir /nfs
 ssh root@${CAAS_HOST_MASTER1}
 ```
 
-```text
+```bash
 cd $offlinedata/caas-offline/install/
 cat > docker << EOF
 # /etc/sysconfig/docker

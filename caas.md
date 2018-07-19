@@ -228,7 +228,7 @@ cat > caasportal.yaml << EOF
     muddle_image_tag: $CAAS_VAR_TAG_MUDDLE_IMAGE
     redis_image_tag: $CAAS_VAR_TAG_REDIS_IMAGE
     caas_domain_portal: $CAAS_DOMAIN_PORTAL
-    
+
   tasks:
     - name: import the images for caasportal
       shell: cd ../images && ./import_caasportal.sh  $CAAS_DOMAIN_HARBOR Caas12345
@@ -523,9 +523,7 @@ spec:
   wildcardPolicy: None
 EOF
 
-```
 
-```bash
 cat > prometheus/volumes.yml << EOF
 ---
 apiVersion: v1
@@ -584,10 +582,6 @@ spec:
   volumeName: promrule
 EOF
 
-
-```
-
-```bash
 cat ../caas/prometheus/config/prometheus.yaml > prometheus/prometheus.yml
 hostname_ip=$(env |grep CAAS_HOST |awk -F '=' '{if ($2!="") { split(tolower($1),arrays, "_"); print arrays[3]" " $2}}')
 tempfile=$(mktemp temp.XXXXXX)
@@ -611,28 +605,7 @@ done
 
 cat $tempfile >> prometheus/prometheus.yml
 
-```
 
-```bash
-cat > node_exporter.yml << EOF
----
-- hosts: all
-  tasks:
-    - name: copy the node_exporter to all the server
-      copy:
-        src: ../caas/prometheus/node_exporter
-        dest: /usr/bin/node_exporter
-        mode: 0755
-    - name: start the node_exporter
-      shell: 'nohup /usr/bin/node_exporter &'
-    - name: open the port:9100 for node_exporter
-      shell: 'iptables -nL|grep 9100 || iptables -I INPUT -p tcp --dport 9100 -j ACCEPT && iptables-save'
-EOF
-
-ansible-playbook -i ansible_hosts node_exporter.yml
-```
-
-```bash
 cat > prometheus-setup.sh << EOF
 curl -X GET 'http://$CAAS_VIP_NFS:8080/nfs/create?volName=prometheusrule&volSize=2048'
 curl -X GET 'http://$CAAS_VIP_NFS:8080/nfs/create?volName=alertmanager&volSize=1024'
@@ -654,6 +627,22 @@ scp prometheus/alert.rules $CAAS_VIP_NFS:/nfs/prometheusrule/
 
 EOF
 
+cat > node_exporter.yml << EOF
+---
+- hosts: all
+  tasks:
+    - name: copy the node_exporter to all the server
+      copy:
+        src: ../caas/prometheus/node_exporter
+        dest: /usr/bin/node_exporter
+        mode: 0755
+    - name: start the node_exporter
+      shell: 'nohup /usr/bin/node_exporter &'
+    - name: open the port:9100 for node_exporter
+      shell: 'iptables -nL|grep 9100 || iptables -I INPUT -p tcp --dport 9100 -j ACCEPT && iptables-save'
+EOF
+
+ansible-playbook -i ansible_hosts node_exporter.yml
 
 chmod +x  prometheus-setup.sh
 ./prometheus-setup.sh
