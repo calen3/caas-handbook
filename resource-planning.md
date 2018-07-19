@@ -8,7 +8,7 @@
 
 > > 生成规划文件
 
-```text
+```bash
 touch ~/.bash_caas_env
 ```
 
@@ -20,7 +20,7 @@ touch ~/.bash_caas_env
 
 > 具体IP地址以当前实际情况为准
 
-```text
+```bash
 #master1 IP 具体IP地址以实际情况为准
 export CAAS_HOST_MASTER1=10.74.248.241
 # master2 IP 具体IP地址以实际情况为准
@@ -33,7 +33,7 @@ export CAAS_HOST_MASTER3=10.74.248.243
 
 > 具体IP地址以当前实际情况为准
 
-```text
+```bash
 #node1 IP 具体IP地址以实际情况为准
 export CAAS_HOST_NODE1=10.74.248.244
 #node2 IP 具体IP地址以实际情况为准
@@ -57,7 +57,7 @@ export CAAS_HOST_NODE9=
 
 > 具体IP地址以当前实际情况为准
 
-```text
+```bash
 #loadbalance1 IP 具体IP地址以实际情况为准
 export CAAS_HOST_LB1=10.74.248.247
 # loadbalance1 IP 具体IP地址以实际情况为准 
@@ -68,7 +68,7 @@ export CAAS_HOST_LB2=10.74.248.248
 
 > 具体IP地址以当前实际情况为准
 
-```text
+```bash
 #storage1 IP 具体IP地址以实际情况为准
 export CAAS_HOST_STORAGE1=10.74.248.249
 # storage2 IP 具体IP地址以实际情况为准
@@ -79,7 +79,7 @@ export CAAS_HOST_STORAGE2=10.74.248.250
 
 > 具体IP地址以当前实际情况为准
 
-```text
+```bash
 #harbor vip 具体IP地址以实际情况为准
 export CAAS_VIP_HARBOR=10.74.248.251
 
@@ -97,7 +97,7 @@ export CAAS_VIP_MYSQL_LDAP=10.74.248.254
 
 > 请根据部署环境的实际情况，对容器的网络进行规划，可参考下面的例子。
 
-```text
+```bash
 #系统中主机ip的掩码为9位，系统支持的最大主机数为2^9=512
 export CAAS_OSM_HOST_SUBNET_LENGTH=9
 # 每个主机上的pod ip掩码位数为18-9=9，即每台主机上最多有2^9=512个pod的ip
@@ -108,7 +108,7 @@ export CAAS_OSM_CLUSTER_NETWORK_CIDR=10.128.0.0/18
 
 > 具体地址以当前实际情况为准，具体泛域名后缀\(example.com\)以实际情况为准
 
-```text
+```bash
 export CAAS_DOMAIN_LDAP=ldap.caas.example.com
 export CAAS_DOMAIN_HARBOR=harbor.caas.example.com
 export CAAS_DOMAIN_OS_CONSOLE=os-console.caas.example.com
@@ -125,7 +125,7 @@ export CAAS_DOMAIN_PAN=caas.example.com
 
 > 下面 的参数是caas portal部署时使用的镜像tag，默认值如下。当caas portal有版本更新时，请根据实时的情况进行更新
 
-```text
+```bash
 #omp镜像的tag
 export CAAS_VAR_TAG_OMP_IMAGE=v1
 # agamaha镜像的tag
@@ -146,7 +146,7 @@ export CAAS_VAR_TAG_REDIS_IMAGE=3.2
 
 > 完成caas资源的规划，保存并退出文件~/.bash\_caas\_env， 在linux终端中执行以下命令
 
-```text
+```bash
 echo ". ~/.bash_caas_env" >> ~/.bashrc
 source ~/.bashrc
 ```
