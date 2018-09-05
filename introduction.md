@@ -1,6 +1,6 @@
 # introduction
 
-本文主要讲解caas产品的部署
+本文主要讲解caas产品的部署。
 
 ## 简介
 
